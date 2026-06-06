@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MFKNDDTWVS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MFKNDDTWVS');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -70,6 +79,9 @@
             border: 1px solid #eef2f3;
             box-sizing: border-box;
         }
+        .subject-row:focus-within {
+            border-color: #3498db;
+        }
         .subject-label {
             font-weight: bold;
             min-width: 85px;
@@ -83,6 +95,10 @@
             outline: none;
             background-color: #fff;
             font-size: 14px;
+            transition: 0.2s;
+        }
+        select:focus {
+            border-color: #3498db;
         }
         .btn-add {
             background-color: #3498db;
@@ -123,6 +139,7 @@
             cursor: pointer;
             width: 75px;
             font-size: 14px;
+            transition: 0.3s;
         }
         .btn-delete:hover { background-color: #c0392b; }
 
@@ -136,7 +153,6 @@
             display: none;
         }
         
-        /* Dynamic Styles for Success and Failure */
         .result-success {
             color: #2c3e50;
             background: #e8f8f5;
@@ -158,7 +174,6 @@
             padding-top: 15px;
         }
 
-        /* Responsive Mobile Layout */
         @media (max-width: 480px) {
             .table-header {
                 display: none;
@@ -335,7 +350,6 @@
         const resultDisplay = document.getElementById('result-display');
         resultDisplay.style.display = 'block';
         
-        // Checking if there is any 'F' grade
         if (failCount > 0) {
             resultDisplay.className = 'result-box result-fail';
             if (failCount === 1) {
