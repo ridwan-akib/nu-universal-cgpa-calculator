@@ -98,10 +98,10 @@
             background-color: #fff;
             font-size: 13px;
             transition: 0.2s;
-            min-width: 0; /* Prevents select from overflowing on small screens */
+            min-width: 0;
         }
         .grade-select {
-            flex: 1.2; /* Gives slightly more space to grade text */
+            flex: 1.2;
         }
         select:focus {
             border-color: #3498db;
@@ -135,6 +135,22 @@
             transition: 0.3s;
         }
         .btn-calc:hover { background-color: #27ae60; }
+
+        /* Share Button Style */
+        .btn-share {
+            background-color: #9b59b6;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-share:hover { background-color: #8e44ad; }
 
         .btn-delete {
             background-color: #e74c3c;
@@ -173,6 +189,23 @@
             border: 1px solid #e74c3c;
         }
 
+        /* Info section for AdSense Value */
+        .info-section {
+            margin-top: 25px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #555;
+            line-height: 1.6;
+            border-left: 4px solid #3498db;
+        }
+        .info-section h4 {
+            margin: 0 0 8px 0;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
         .footer-credit {
             text-align: center;
             margin-top: 20px;
@@ -182,38 +215,26 @@
             border-top: 1px solid #eef2f3;
             padding-top: 12px;
         }
+        .footer-links {
+            margin-top: 8px;
+            font-size: 11px;
+        }
+        .footer-links a {
+            color: #7f8c8d;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .footer-links a:hover { text-decoration: underline; }
 
-        /* Responsive adjustments for super clean one-line view on mobile */
         @media (max-width: 480px) {
-            .calculator-card {
-                padding: 15px 10px;
-            }
-            .table-header {
-                font-size: 11px;
-                padding: 0 2px 5px 2px;
-            }
+            .calculator-card { padding: 15px 10px; }
+            .table-header { font-size: 11px; padding: 0 2px 5px 2px; }
             .header-subject { width: 55px; }
             .header-action { width: 28px; }
-            
-            .subject-row {
-                padding: 6px 4px;
-                gap: 4px;
-            }
-            .subject-label {
-                width: 55px;
-                font-size: 11px;
-            }
-            select {
-                padding: 6px 2px;
-                font-size: 11px;
-                border-radius: 4px;
-            }
-            .btn-delete {
-                width: 28px;
-                padding: 6px 0;
-                font-size: 11px;
-                border-radius: 4px;
-            }
+            .subject-row { padding: 6px 4px; gap: 4px; }
+            .subject-label { width: 55px; font-size: 11px; }
+            select { padding: 6px 2px; font-size: 11px; border-radius: 4px; }
+            .btn-delete { width: 28px; padding: 6px 0; font-size: 11px; border-radius: 4px; }
             h2 { font-size: 18px; }
             .subtitle { font-size: 12px; margin-bottom: 15px; }
         }
@@ -282,11 +303,21 @@
 
     <button class="btn-add" onclick="addSubjectRow()">+ Add Subject</button>
     <button class="btn-calc" onclick="calculateCGPA()">Calculate CGPA</button>
+    
+    <button class="btn-share" onclick="shareWithFriends()">📢 Share with Friends</button>
 
     <div class="result-box" id="result-display"></div>
 
+    <div class="info-section">
+        <h4>National University Grading System</h4>
+        <p>This universal calculator uses standard NU credits (1 to 4) and official GPA scale points: A+ (4.00), A (3.75), A- (3.50), B+ (3.25), B (3.00), B- (2.75), C+ (2.50), C (2.25), D (2.00), and F (0.00).</p>
+    </div>
+
     <div class="footer-credit">
         Developed by Md. Ridwan Ahmed Akib
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a> | <a href="#">Disclaimer</a>
+        </div>
     </div>
 </div>
 
@@ -381,6 +412,25 @@
             let finalCGPA = totalEarnedPoints / totalCredits;
             resultDisplay.className = 'result-box result-success';
             resultDisplay.innerText = `Your CGPA: ${finalCGPA.toFixed(2)}`;
+        }
+    }
+
+    // Function to share link with friends smoothly
+    function shareWithFriends() {
+        const shareText = "Hey! Check out this awesome and super fast NU Universal CGPA Calculator. It works perfectly for all departments in mobile in 1 line! 🔥\n\nCalculate your GPA instantly here: " + window.location.href;
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'NU Universal CGPA Calculator',
+                text: shareText,
+                url: window.location.href,
+            }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert("📢 Share message and link copied to clipboard! Paste it to your friends or Facebook groups.");
+            }).catch(() => {
+                alert("Failed to copy link. Please copy the URL from address bar.");
+            });
         }
     }
 </script>
