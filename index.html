@@ -20,9 +20,33 @@
     <meta name="robots" content="index, follow">
 
     <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #2c3e50;
+            --subtitle-color: #7f8c8d;
+            --row-bg: #f9f9f9;
+            --border-color: #eef2f3;
+            --input-border: #cccccc;
+            --input-bg: #ffffff;
+            --info-bg: #f8f9fa;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a252f;
+            --card-bg: #2c3e50;
+            --text-color: #ecf0f1;
+            --subtitle-color: #bdc3c7;
+            --row-bg: #34495e;
+            --border-color: #415b76;
+            --input-border: #7f8c8d;
+            --input-bg: #2c3e50;
+            --info-bg: #34495e;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            background-color: var(--bg-color);
             margin: 0;
             padding: 12px;
             display: flex;
@@ -30,27 +54,44 @@
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+            color: var(--text-color);
         }
         .calculator-card {
-            background: #ffffff;
+            background: var(--card-bg);
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             width: 100%;
             max-width: 550px;
             box-sizing: border-box;
+            position: relative;
+            transition: background-color 0.3s;
         }
+
+        /* Dark Mode Button Styling */
+        .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            outline: none;
+        }
+
         h2 {
             text-align: center;
-            color: #2c3e50; /* Standard Professional Dark Slate */
-            margin-top: 0;
+            color: var(--text-color);
+            margin-top: 10px;
             margin-bottom: 5px;
             font-size: 22px;
             font-weight: 700;
         }
         .subtitle {
             text-align: center;
-            color: #7f8c8d;
+            color: var(--subtitle-color);
             font-size: 13px;
             margin-bottom: 20px;
         }
@@ -59,9 +100,9 @@
             gap: 8px;
             padding: 0 5px 8px 5px;
             font-weight: bold;
-            color: #7f8c8d;
+            color: var(--subtitle-color);
             font-size: 13px;
-            border-bottom: 2px solid #eef2f3;
+            border-bottom: 2px solid var(--border-color);
             margin-bottom: 12px;
         }
         .header-subject { width: 75px; }
@@ -74,10 +115,10 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 10px;
-            background: #f9f9f9;
+            background: var(--row-bg);
             padding: 8px;
             border-radius: 8px;
-            border: 1px solid #eef2f3;
+            border: 1px solid var(--border-color);
             box-sizing: border-box;
         }
         .subject-row:focus-within {
@@ -86,17 +127,18 @@
         .subject-label {
             font-weight: bold;
             width: 75px;
-            color: #34495e;
+            color: var(--text-color);
             font-size: 13px;
             white-space: nowrap;
         }
         select {
             flex: 1;
             padding: 8px 5px;
-            border: 1px solid #cccccc;
+            border: 1px solid var(--input-border);
             border-radius: 6px;
             outline: none;
-            background-color: #fff;
+            background-color: var(--input-bg);
+            color: var(--text-color);
             font-size: 13px;
             transition: 0.2s;
             min-width: 0;
@@ -191,18 +233,35 @@
 
         .info-section {
             margin-top: 25px;
-            background: #f8f9fa;
+            background: var(--info-bg);
             padding: 15px;
             border-radius: 8px;
             font-size: 12px;
-            color: #555;
+            color: var(--text-color);
             line-height: 1.6;
             border-left: 4px solid #3498db;
         }
         .info-section h4 {
             margin: 0 0 8px 0;
-            color: #2c3e50;
+            color: var(--text-color);
             font-size: 14px;
+        }
+
+        /* Grading System Table Styling */
+        .grading-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
+        }
+        .grading-table th, .grading-table td {
+            border: 1px solid var(--border-color);
+            padding: 6px;
+        }
+        .grading-table th {
+            background-color: var(--border-color);
+            color: var(--text-color);
         }
 
         /* Footer Styling */
@@ -210,9 +269,9 @@
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
-            color: #2c3e50; 
+            color: var(--text-color); 
             font-weight: 600; 
-            border-top: 1px solid #eef2f3;
+            border-top: 1px solid var(--border-color);
             padding-top: 12px;
         }
         .footer-links {
@@ -223,16 +282,16 @@
         .footer-links button {
             background: none;
             border: none;
-            color: #7f8c8d;
+            color: var(--subtitle-color);
             cursor: pointer;
             font-size: 11px;
             margin: 0 5px;
             padding: 0;
             text-decoration: none;
         }
-        .footer-links button:hover { text-decoration: underline; color: #34495e; }
+        .footer-links button:hover { text-decoration: underline; color: var(--text-color); }
 
-        /* Modal / Pop-up Styles for Privacy and Terms */
+        /* Modal Styles */
         .modal {
             display: none; 
             position: fixed; 
@@ -245,37 +304,37 @@
             background-color: rgba(0,0,0,0.4); 
         }
         .modal-content {
-            background-color: #fefefe;
+            background-color: var(--card-bg);
             margin: 15% auto; 
             padding: 20px;
-            border: 1px solid #888;
+            border: 1px solid var(--border-color);
             width: 80%;
             max-width: 450px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             font-size: 13px;
-            color: #333;
+            color: var(--text-color);
             line-height: 1.6;
             text-align: left;
         }
         .modal-content h3 {
             margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 8px;
         }
         .modal-content ul {
             padding-left: 20px;
         }
         .close-btn {
-            color: #aaa;
+            color: var(--subtitle-color);
             float: right;
             font-size: 24px;
             font-weight: bold;
             cursor: pointer;
             line-height: 20px;
         }
-        .close-btn:hover { color: #000; }
+        .close-btn:hover { color: var(--text-color); }
 
         @media (max-width: 480px) {
             .calculator-card { padding: 15px 10px; }
@@ -295,6 +354,8 @@
 <body>
 
 <div class="calculator-card">
+    <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn">🌙</button>
+
     <h2>All Department CGPA Calculator</h2>
     <div class="subtitle">Enter your credits and grades to calculate CGPA</div>
     
@@ -362,7 +423,69 @@
 
     <div class="info-section">
         <h4>National University Grading System</h4>
-        <p>This universal calculator uses standard NU credits (1 to 4) and official GPA scale points: A+ (4.00), A (3.75), A- (3.50), B+ (3.25), B (3.00), B- (2.75), C+ (2.50), C (2.25), D (2.00), and F (0.00).</p>
+        <p>This universal calculator uses standard NU credits (1 to 4) and official GPA scale points.</p>
+        
+        <table class="grading-table">
+            <thead>
+                <tr>
+                    <th>Marks</th>
+                    <th>Grade</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>80% or above</td>
+                    <td>A+</td>
+                    <td>4.00</td>
+                </tr>
+                <tr>
+                    <td>75% to 79%</td>
+                    <td>A</td>
+                    <td>3.75</td>
+                </tr>
+                <tr>
+                    <td>70% to 74%</td>
+                    <td>A-</td>
+                    <td>3.50</td>
+                </tr>
+                <tr>
+                    <td>65% to 69%</td>
+                    <td>B+</td>
+                    <td>3.25</td>
+                </tr>
+                <tr>
+                    <td>60% to 64%</td>
+                    <td>B</td>
+                    <td>3.00</td>
+                </tr>
+                <tr>
+                    <td>55% to 59%</td>
+                    <td>B-</td>
+                    <td>2.75</td>
+                </tr>
+                <tr>
+                    <td>50% to 54%</td>
+                    <td>C+</td>
+                    <td>2.50</td>
+                </tr>
+                <tr>
+                    <td>45% to 49%</td>
+                    <td>C</td>
+                    <td>2.25</td>
+                </tr>
+                <tr>
+                    <td>40% to 44%</td>
+                    <td>D</td>
+                    <td>2.00</td>
+                </tr>
+                <tr>
+                    <td>Below 40%</td>
+                    <td>F</td>
+                    <td>0.00</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="footer-credit">
@@ -393,7 +516,7 @@
         <p>এই ওয়েবসাইটটি ব্যবহারের মাধ্যমে আপনি নিম্নলিখিত শর্তাবলীতে সম্মত হচ্ছেন:</p>
         <ul>
             <li><strong>অফিশিয়াল টুল নয়:</strong> এটি জাতীয় বিশ্ববিদ্যালয়ের (NU) কোনো অফিশিয়াল ক্যালকুলেটর নয়। এটি স্টুডেন্টদের সাহায্যার্থে তৈরি একটি স্বতন্ত্র শিক্ষামূলক টুল।</li>
-            <li><strong>ফলাফলের নির্ভুলতা:</strong> প্রাপ্ত ফলাফল শুধুমাত্র তাৎক্ষণিক ধারণার জন্য প্রযোজ্য। চূড়ান্ত ফলাফলের জন্য সর্বদা বিশ্ববিদ্যালয়ের অফিশিয়াল মার্কশিট অনুসরণ করুন। কোনো প্রকার হিসাবের অমিলের জন্য এই টুল কর্তৃপক্ষ দায়ী থাকবে না।</li>
+            <li><strong>ফলাফেলের নির্ভুলতা:</strong> প্রাপ্ত ফলাফল শুধুমাত্র তাৎক্ষণিক ধারণার জন্য প্রযোজ্য। চূড়ান্ত ফলাফেলের জন্য সর্বদা বিশ্ববিদ্যালয়ের অফিশিয়াল মার্কশিট অনুসরণ করুন। কোনো প্রকার হিসাবের অমিলের জন্য এই টুল কর্তৃপক্ষ দায়ী থাকবে না।</li>
         </ul>
     </div>
 </div>
@@ -510,7 +633,7 @@
         }
     }
 
-    // Modal Control Functions
+    // Modal Controls
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
     }
@@ -519,7 +642,20 @@
         document.getElementById(modalId).style.display = "none";
     }
 
-    // Close modal if user clicks outside of it
+    // Dark Mode Toggle Logic
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute("data-theme");
+        const themeBtn = document.getElementById("theme-btn");
+        
+        if (currentTheme === "dark") {
+            document.documentElement.setAttribute("data-theme", "light");
+            themeBtn.innerText = "🌙";
+        } else {
+            document.documentElement.setAttribute("data-theme", "dark");
+            themeBtn.innerText = "☀️";
+        }
+    }
+
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.style.display = "none";
