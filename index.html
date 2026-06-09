@@ -205,13 +205,13 @@
             font-size: 14px;
         }
 
-        /* Upgraded Footer Styling (More Professional and Clearer) */
+        /* Footer Styling */
         .footer-credit {
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
-            color: #2c3e50; /* Deep premium color */
-            font-weight: 600; /* Bolder text so Akib's name stands out */
+            color: #2c3e50; 
+            font-weight: 600; 
             border-top: 1px solid #eef2f3;
             padding-top: 12px;
         }
@@ -220,12 +220,62 @@
             font-size: 11px;
             font-weight: normal;
         }
-        .footer-links a {
+        .footer-links button {
+            background: none;
+            border: none;
             color: #7f8c8d;
-            text-decoration: none;
+            cursor: pointer;
+            font-size: 11px;
             margin: 0 5px;
+            padding: 0;
+            text-decoration: none;
         }
-        .footer-links a:hover { text-decoration: underline; }
+        .footer-links button:hover { text-decoration: underline; color: #34495e; }
+
+        /* Modal / Pop-up Styles for Privacy and Terms */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 450px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .modal-content h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        .modal-content ul {
+            padding-left: 20px;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 20px;
+        }
+        .close-btn:hover { color: #000; }
 
         @media (max-width: 480px) {
             .calculator-card { padding: 15px 10px; }
@@ -238,6 +288,7 @@
             .btn-delete { width: 28px; padding: 6px 0; font-size: 11px; border-radius: 4px; }
             h2 { font-size: 18px; }
             .subtitle { font-size: 12px; margin-bottom: 15px; }
+            .modal-content { margin: 30% auto; width: 90%; }
         }
     </style>
 </head>
@@ -317,8 +368,33 @@
     <div class="footer-credit">
         Developed by Md. Ridwan Ahmed Akib
         <div class="footer-links">
-            <a href="#">Privacy Policy</a> | <a href="#">Disclaimer</a>
+            <button onclick="openModal('privacy-modal')">Privacy Policy</button> | 
+            <button onclick="openModal('terms-modal')">Terms & Conditions</button>
         </div>
+    </div>
+</div>
+
+<div id="privacy-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('privacy-modal')">&times;</span>
+        <h3>Privacy Policy</h3>
+        <p>আমরা আপনার গোপনীয়তাকে সর্বোচ্চ গুরুত্ব দিই। এই টুলটি ব্যবহারের ক্ষেত্রে নীতিসমূহ নিচে দেওয়া হলো:</p>
+        <ul>
+            <li><strong>ডেটা সংরক্ষণ:</strong> এই ক্যালকুলেটরটি কোনো প্রকার ব্যক্তিগত তথ্য বা আপনার অ্যাকাডেমিক রেজাল্ট আমাদের সার্ভারে সংরক্ষণ করে না। ইনপুটকৃত সমস্ত তথ্য সাময়িকভাবে আপনার নিজস্ব ব্রাউজারেই প্রসেস হয়।</li>
+            <li><strong>গুগল এনালিটিক্স:</strong> সাইটের পারফরম্যান্স ও ইউজার অভিজ্ঞতা উন্নত করার উদ্দেশ্যে আমরা Google Analytics ব্যবহার করি, যা কোনো ব্যক্তিগত পরিচয় ছাড়াই শুধুমাত্র ভিজিটর কাউন্ট ও ব্যবহারের সাধারণ ডেটা ট্র্যাক করে।</li>
+        </ul>
+    </div>
+</div>
+
+<div id="terms-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('terms-modal')">&times;</span>
+        <h3>Terms & Conditions</h3>
+        <p>এই ওয়েবসাইটটি ব্যবহারের মাধ্যমে আপনি নিম্নলিখিত শর্তাবলীতে সম্মত হচ্ছেন:</p>
+        <ul>
+            <li><strong>অফিশিয়াল টুল নয়:</strong> এটি জাতীয় বিশ্ববিদ্যালয়ের (NU) কোনো অফিশিয়াল ক্যালকুলেটর নয়। এটি স্টুডেন্টদের সাহায্যার্থে তৈরি একটি স্বতন্ত্র শিক্ষামূলক টুল।</li>
+            <li><strong>ফলাফলের নির্ভুলতা:</strong> প্রাপ্ত ফলাফল শুধুমাত্র তাৎক্ষণিক ধারণার জন্য প্রযোজ্য। চূড়ান্ত ফলাফলের জন্য সর্বদা বিশ্ববিদ্যালয়ের অফিশিয়াল মার্কশিট অনুসরণ করুন। কোনো প্রকার হিসাবের অমিলের জন্য এই টুল কর্তৃপক্ষ দায়ী থাকবে না।</li>
+        </ul>
     </div>
 </div>
 
@@ -431,6 +507,22 @@
             }).catch(() => {
                 alert("Failed to copy link. Please copy the URL from address bar.");
             });
+        }
+    }
+
+    // Modal Control Functions
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // Close modal if user clicks outside of it
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
         }
     }
 </script>
