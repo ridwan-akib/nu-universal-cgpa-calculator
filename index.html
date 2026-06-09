@@ -150,24 +150,26 @@
             border-color: #3498db;
         }
         
-        /* Action Buttons Grid */
+        /* Fixed Action Buttons Grid for Perfect Mobile 1-Line Display */
         .btn-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            display: flex;
             gap: 10px;
             margin-top: 10px;
+            width: 100%;
         }
         
         .btn-add {
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 12px 15px;
+            padding: 12px 10px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             transition: 0.3s;
+            flex: 1; /* Equal space allocation */
+            white-space: nowrap; /* Prevents text breaking into 2 lines */
         }
         .btn-add:hover { background-color: #2980b9; }
 
@@ -175,12 +177,14 @@
             background-color: #95a5a6;
             color: white;
             border: none;
-            padding: 12px 15px;
+            padding: 12px 10px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             transition: 0.3s;
+            flex: 1; /* Equal space allocation */
+            white-space: nowrap; /* Prevents text breaking into 2 lines */
         }
         .btn-clear:hover { background-color: #7f8c8d; }
         
@@ -399,6 +403,8 @@
             h2 { font-size: 18px; }
             .subtitle { font-size: 12px; margin-bottom: 15px; }
             .modal-content { margin: 30% auto; width: 90%; }
+            /* Minor mobile adjustment for button font to ensure it fits perfectly */
+            .btn-add, .btn-clear { font-size: 13px; padding: 12px 5px; }
         }
     </style>
 </head>
@@ -638,16 +644,13 @@
         }
     }
 
-    // New Clear All Function
     function clearAllRows() {
         const container = document.getElementById('subjects-container');
-        container.innerHTML = ''; // Clear all existing rows
+        container.innerHTML = '';
         subjectCount = 0;
         
-        // Hide result display if open
         document.getElementById('result-display').style.display = 'none';
         
-        // Add default 2 rows back for fresh start
         addSubjectRow();
         addSubjectRow();
     }
@@ -720,7 +723,6 @@
         }
     }
 
-    // Modal Controls
     function openModal(modalId) {
         document.getElementById(modalId).style.display = "block";
     }
@@ -729,7 +731,6 @@
         document.getElementById(modalId).style.display = "none";
     }
 
-    // Dark Mode Toggle Logic
     function toggleTheme() {
         const currentTheme = document.documentElement.getAttribute("data-theme");
         const themeBtn = document.getElementById("theme-btn");
