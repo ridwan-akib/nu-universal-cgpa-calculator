@@ -168,8 +168,8 @@
             font-weight: bold;
             font-size: 14px;
             transition: 0.3s;
-            flex: 1; /* Equal space allocation */
-            white-space: nowrap; /* Prevents text breaking into 2 lines */
+            flex: 1;
+            white-space: nowrap;
         }
         .btn-add:hover { background-color: #2980b9; }
 
@@ -183,8 +183,8 @@
             font-weight: bold;
             font-size: 14px;
             transition: 0.3s;
-            flex: 1; /* Equal space allocation */
-            white-space: nowrap; /* Prevents text breaking into 2 lines */
+            flex: 1;
+            white-space: nowrap;
         }
         .btn-clear:hover { background-color: #7f8c8d; }
         
@@ -319,7 +319,7 @@
             line-height: 1.5;
         }
 
-        /* Footer Styling */
+        /* Footer Styling with Professional Link */
         .footer-credit {
             text-align: center;
             margin-top: 20px;
@@ -328,6 +328,15 @@
             font-weight: 600; 
             border-top: 1px solid var(--border-color);
             padding-top: 12px;
+        }
+        .footer-credit a {
+            color: #3498db;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-credit a:hover {
+            color: #2980b9;
+            text-decoration: underline;
         }
         .footer-links {
             margin-top: 8px;
@@ -403,7 +412,6 @@
             h2 { font-size: 18px; }
             .subtitle { font-size: 12px; margin-bottom: 15px; }
             .modal-content { margin: 30% auto; width: 90%; }
-            /* Minor mobile adjustment for button font to ensure it fits perfectly */
             .btn-add, .btn-clear { font-size: 13px; padding: 12px 5px; }
         }
     </style>
@@ -562,13 +570,13 @@
         </div>
 
         <div class="faq-item">
-            <div class="faq-question">৩. নু-তে (NU) কোনো সাবজেক্টে 'F' গ্রেড আসলে সিজিপিএ কেমন হবে?</div>
+            <div class="faq-question">৩. এনইউ-তে (NU) কোনো সাবজেক্টে 'F' গ্রেড আসলে সিজিপিএ কেমন হবে?</div>
             <div class="faq-answer">কোনো সাবজেক্টে 'F' গ্রেড আসলে গ্রেড পয়েন্ট ০.০০ কাউন্ট হয়। আমাদের ক্যালকুলেটরে কোনো সাবজেক্টে 'F' সিলেক্ট করলে তা স্বয়ংক্রিয়ভাবে আপনাকে "Failed" দেখাবে এবং কয়টি সাবজেক্টে ফেল এসেছে তা উল্লেখ করে দেবে।</div>
         </div>
     </div>
 
     <div class="footer-credit">
-        Developed by Md. Ridwan Ahmed Akib
+        Developed by <a href="https://www.facebook.com/AkibOfficialID/" target="_blank">Md. Ridwan Ahmed Akib</a>
         <div class="footer-links">
             <button onclick="openModal('privacy-modal')">Privacy Policy</button> | 
             <button onclick="openModal('terms-modal')">Terms & Conditions</button>
