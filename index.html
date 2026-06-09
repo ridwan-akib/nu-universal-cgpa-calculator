@@ -149,6 +149,15 @@
         select:focus {
             border-color: #3498db;
         }
+        
+        /* Action Buttons Grid */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
         .btn-add {
             background-color: #3498db;
             color: white;
@@ -157,12 +166,23 @@
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
             font-size: 15px;
             transition: 0.3s;
         }
         .btn-add:hover { background-color: #2980b9; }
+
+        .btn-clear {
+            background-color: #95a5a6;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        .btn-clear:hover { background-color: #7f8c8d; }
         
         .btn-calc {
             background-color: #2ecc71;
@@ -262,6 +282,37 @@
         .grading-table th {
             background-color: var(--border-color);
             color: var(--text-color);
+        }
+
+        /* Q&A Section Styling */
+        .faq-section {
+            margin-top: 25px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+        .faq-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            text-align: center;
+        }
+        .faq-item {
+            margin-bottom: 12px;
+            background: var(--row-bg);
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .faq-question {
+            font-weight: bold;
+            font-size: 13px;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+        .faq-answer {
+            font-size: 12px;
+            color: var(--subtitle-color);
+            line-height: 1.5;
         }
 
         /* Footer Styling */
@@ -414,9 +465,12 @@
         </div>
     </div>
 
-    <button class="btn-add" onclick="addSubjectRow()">+ Add Subject</button>
-    <button class="btn-calc" onclick="calculateCGPA()">Calculate CGPA</button>
+    <div class="btn-grid">
+        <button class="btn-add" onclick="addSubjectRow()">+ Add Subject</button>
+        <button class="btn-clear" onclick="clearAllRows()">🧹 Clear All</button>
+    </div>
     
+    <button class="btn-calc" onclick="calculateCGPA()">Calculate CGPA</button>
     <button class="btn-share" onclick="shareWithFriends()">📢 Share with Friends</button>
 
     <div class="result-box" id="result-display"></div>
@@ -486,6 +540,25 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="faq-section">
+        <h3>Frequently Asked Questions (Q&A)</h3>
+        
+        <div class="faq-item">
+            <div class="faq-question">১. জাতীয় বিশ্ববিদ্যালয়ের জিপিএ (GPA) কীভাবে হিসাব করা হয়?</div>
+            <div class="faq-answer">প্রতিটি বিষয়ের অর্জিত গ্রেড পয়েন্টকে ওই বিষয়ের ক্রেডিট দিয়ে গুণ করা হয়। এরপর সব বিষয়ের মোট পয়েন্টকে মোট ক্রেডিট দিয়ে ভাগ করে চূড়ান্ত জিপিএ বা সিজিপিএ বের করা হয়। আমাদের এই ক্যালকুলেটরটি হুবহু এই নিয়মে কাজ করে।</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">২. এই সিজিপিএ ক্যালকুলেটরটি কি সব ডিপার্টমেন্টের জন্য প্রযোজ্য?</div>
+            <div class="faq-answer">হ্যাঁ, এটি একটি Universal বা সর্বজনীন ক্যালকুলেটর। জাতীয় বিশ্ববিদ্যালয়ের অনার্স, ডিগ্রি, এবং মাস্টার্সসহ যেকোনো ডিপার্টমেন্টের স্টুডেন্টরা তাদের ক্রেডিট এবং গ্রেড ইনপুট দিয়ে নিখুঁত ফলাফল পেতে পারেন।</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">৩. নু-তে (NU) কোনো সাবজেক্টে 'F' গ্রেড আসলে সিজিপিএ কেমন হবে?</div>
+            <div class="faq-answer">কোনো সাবজেক্টে 'F' গ্রেড আসলে গ্রেড পয়েন্ট ০.০০ কাউন্ট হয়। আমাদের ক্যালকুলেটরে কোনো সাবজেক্টে 'F' সিলেক্ট করলে তা স্বয়ংক্রিয়ভাবে আপনাকে "Failed" দেখাবে এবং কয়টি সাবজেক্টে ফেল এসেছে তা উল্লেখ করে দেবে।</div>
+        </div>
     </div>
 
     <div class="footer-credit">
@@ -563,6 +636,20 @@
             row.remove();
             updateLabels();
         }
+    }
+
+    // New Clear All Function
+    function clearAllRows() {
+        const container = document.getElementById('subjects-container');
+        container.innerHTML = ''; // Clear all existing rows
+        subjectCount = 0;
+        
+        // Hide result display if open
+        document.getElementById('result-display').style.display = 'none';
+        
+        // Add default 2 rows back for fresh start
+        addSubjectRow();
+        addSubjectRow();
     }
 
     function updateLabels() {
