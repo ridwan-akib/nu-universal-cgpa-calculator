@@ -710,7 +710,19 @@
         } else {
             let finalCGPA = totalEarnedPoints / totalCredits;
             resultDisplay.className = 'result-box result-success';
-            resultDisplay.innerText = `Your CGPA: ${finalCGPA.toFixed(2)}`;
+            
+            // ক্লাসের লজিক হিসাব করা
+            let division = "";
+            if (finalCGPA >= 3.00) {
+                division = "1st Class";
+            } else if (finalCGPA >= 2.25) {
+                division = "2nd Class";
+            } else if (finalCGPA >= 2.00) {
+                division = "3rd Class";
+            }
+
+            // সিজিপিএ এবং ব্র্যাকেটে ক্লাস একসাথে এক লাইনে দেখানো
+            resultDisplay.innerText = `Your CGPA: ${finalCGPA.toFixed(2)} (${division})`;
         }
     }
 
